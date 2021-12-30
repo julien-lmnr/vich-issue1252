@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page{% endblock %}
+
+{% block body %}
+    {{ form(form) }}
+
+    <hr>
+
+    {% for page in all_pages %}
+        <div>
+            {{ page.id }} -> {{ page.imageName }}<br>
+            <a href="{{ path('page_edit', {id: page.id}) }}">Edit</a>
+            <form action="{{ path('page_delete', {id: page.id}) }}" method="post">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ page.id) }}">
+                <button type="submit">Delete</button>
+            </form>
+        </div>
+    {% endfor %}
+{% endblock %}
